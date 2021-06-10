@@ -6,8 +6,8 @@ from metaflow import FlowSpec, current, step, argo_base, argo
 #                 {'name': 'AWS_SECRET_ACCESS_KEY', 'value': '3H4WwRp07Gj493LecqV2RIs806zhpkY5apjm9s/B'}],
            envFrom=[{'secretRef': {'name': 'default-object-store-secret'}}],
            imagePullSecrets=[{'name': 'docker-registry-secret'}],
-           annotations={'scenarios.ai.sap.com/name': 'metaflow-demo', "executables.ai.sap.com/name": "hyperparamtuning"},
-           labels={'scenarios.ai.sap.com/id': 'metaflow-demo', 'ai.sap.com/version': '0.0.1'}           
+           annotations={'scenarios.ai.sap.com/name': 'metaflow-demo', 'executables.ai.sap.com/name': 'hyperparamtuning'},
+           labels={'scenarios.ai.sap.com/id': 'metaflow-demo', 'ai.sap.com/version': '0.0.1', 'ai.sap.com/resourcePlan': 'starter'}           
            )
 class HyperParamTuning(FlowSpec):
   """
