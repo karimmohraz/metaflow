@@ -3,7 +3,7 @@ from metaflow import FlowSpec, current, step, argo_base, argo
 
 @argo_base(image='mlf.docker.repositories.sapcdn.io/aif/metaflow-sklearn:0.0.1',
 #            env=[{'name': 'AWS_ACCESS_KEY_ID', 'value': 'xxxx'},
-#                 {'name': 'AWS_SECRET_ACCESS_KEY', 'value': 'xxxx/B'}],
+#                 {'name': 'AWS_SECRET_ACCESS_KEY', 'value': 'xxxx'}],
            envFrom=[{'secretRef': {'name': 'default-object-store-secret'}}],
            imagePullSecrets=[{'name': 'docker-registry-secret'}],
            annotations={'scenarios.ai.sap.com/name': 'metaflow-demo', 'executables.ai.sap.com/name': 'hyperparamtuning'},
