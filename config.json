@@ -1,5 +1,5 @@
 {
-    "METAFLOW_DATASTORE_SYSROOT_S3": "s3://hcp-74bdd7a4-2d88-4cb2-a849-2be0d0b1fb63/workshop",
-    "METAFLOW_DATATOOLS_SYSROOT_S3": "s3://hcp-74bdd7a4-2d88-4cb2-a849-2be0d0b1fb63/workshop/data",
+    "METAFLOW_DATASTORE_SYSROOT_S3": "s3://hcp-74bdd7a4-2d88-4cb2-a849-2be0d0b1fb63/metaflow",
+    "METAFLOW_DATATOOLS_SYSROOT_S3": "s3://hcp-74bdd7a4-2d88-4cb2-a849-2be0d0b1fb63/metaflow/data",
     "METAFLOW_DEFAULT_DATASTORE": "s3"
 }

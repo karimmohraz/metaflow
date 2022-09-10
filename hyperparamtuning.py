@@ -1,14 +1,5 @@
-from metaflow import FlowSpec, current, step, argo_base, argo
+from metaflow import FlowSpec, current, step, argo
 
-
-@argo_base(image='mlf.docker.repositories.sapcdn.io/aif/metaflow-sklearn:0.0.1',
-#            env=[{'name': 'AWS_ACCESS_KEY_ID', 'value': 'xxxx'},
-#                 {'name': 'AWS_SECRET_ACCESS_KEY', 'value': 'xxxx'}],
-           envFrom=[{'secretRef': {'name': 'default-object-store-secret'}}],
-           imagePullSecrets=[{'name': 'docker-registry-secret'}],
-           annotations={'scenarios.ai.sap.com/name': 'metaflow-demo', 'executables.ai.sap.com/name': 'hyperparamtuning'},
-           labels={'scenarios.ai.sap.com/id': 'metaflow-demo', 'ai.sap.com/version': '0.0.1', 'ai.sap.com/resourcePlan': 'starter'}           
-           )
 class HyperParamTuning(FlowSpec):
   """
   Parallel training of MultiLayerPerceptron and RandomForest using hyperparameter search.
@@ -56,7 +47,7 @@ class HyperParamTuning(FlowSpec):
         'learning_rate': ['constant', 'adaptive'],
     }
 
-    self.clf = GridSearchCV(self.mlp, parameter_space, cv=HyperParamTuning.NUM_FOLDS, n_jobs=-1)
+    self.clf = GridSearchCV(self.mlp, parameter_space, cv=self.NUM_FOLDS, n_jobs=-1)
     self.clf.fit(self.X_train, self.y_train) 
 
     self.next(self.compare_models)
@@ -85,7 +76,7 @@ class HyperParamTuning(FlowSpec):
       'max_depth': [5, 10, 30, 50, 80]
     }
     
-    self.clf = RandomizedSearchCV(self.rf, random_grid, n_iter=8, cv=HyperParamTuning.NUM_FOLDS, n_jobs=-1, random_state=42)
+    self.clf = RandomizedSearchCV(self.rf, random_grid, n_iter=8, cv=self.NUM_FOLDS, n_jobs=-1, random_state=42)
     self.clf.fit(self.X_train, self.y_train)
 
     self.next(self.compare_models)

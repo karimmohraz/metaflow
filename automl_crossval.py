@@ -1,12 +1,5 @@
-from metaflow import FlowSpec, current, step, argo_base
+from metaflow import FlowSpec, current, step
 
-
-@argo_base(image='mlf.docker.repositories.sapcdn.io/aif/metaflow-sklearn:0.0.1',
-           envFrom=[{'secretRef': {'name': 'default-object-store-secret'}}],
-           imagePullSecrets=[{'name': 'docker-registry-secret'}],
-           annotations={'scenarios.ai.sap.com/name': 'metaflow-demo', 'executables.ai.sap.com/name': 'automl-crossval'},
-           labels={'scenarios.ai.sap.com/id': 'metaflow-demo', 'ai.sap.com/version': '0.0.1', 'ai.sap.com/resourcePlan': 'starter'}           
-           )
 class AutoMLCrossVal(FlowSpec):
     NUM_FOLDS = 4  # k-fold cross validation
 
@@ -60,7 +53,7 @@ class AutoMLCrossVal(FlowSpec):
         self.nm_clf = self.input  # one classifier
         print(self.nm_clf[0])
 
-        skf = StratifiedKFold(n_splits=AutoMLCrossVal.NUM_FOLDS)
+        skf = StratifiedKFold(n_splits=self.NUM_FOLDS)
         self.k_folds = list(skf.split(self.X_train, self.y_train))
 
         self.next(self.fold_score, foreach='k_folds')
